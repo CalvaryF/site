@@ -1,0 +1,6 @@
+All Tasks
+
+Navbar hilight current page
+Navbar linking
+Add placeholder pages
+Page intros
