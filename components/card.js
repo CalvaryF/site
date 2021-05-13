@@ -16,12 +16,11 @@ const CardDiv = styled.div`
   height: 600px;
   width: 400px;
   margin: 0px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.22), 0 2px 4px rgba(0, 0, 0, 0.34);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: inline-block;
   place-self: center;
-  transition: 0.2s;
-  border: 1px solid #777;
+  border: 1px solid #555;
   border-radius: 5px;
 
   &:hover {
@@ -29,11 +28,13 @@ const CardDiv = styled.div`
     margin-bottom: 15px;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35), 0 10px 10px rgba(0, 0, 0, 0.32);
     cursor: pointer;
+    border: 1px solid #ccc;
 
     div {
       div {
-        background-color: #85d1ff;
+        background-color: #fff;
         transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        transform: scale(1.1);
       }
     }
   }
@@ -51,7 +52,7 @@ const CardTitle = styled.span`
 `;
 
 const Dot = styled.div`
-  background-color: #999999;
+  background-color: #888;
   height: 20px;
   width: 20px;
   border-radius: 10px;
@@ -71,13 +72,15 @@ const CardImage = styled.img`
 const Card = ({ path, title, thumbnail, type }) => {
   return (
     <Link href={path}>
-      <CardDiv>
-        <CardHead>
-          <CardTitle>{title}</CardTitle>
-          <Dot type={type}></Dot>
-        </CardHead>
-        <CardImage src={thumbnail}></CardImage>
-      </CardDiv>
+      <div className="card">
+        <CardDiv>
+          <CardHead>
+            <CardTitle>{title}</CardTitle>
+            <Dot type={type}></Dot>
+          </CardHead>
+          <CardImage src={thumbnail}></CardImage>
+        </CardDiv>
+      </div>
     </Link>
   );
 };

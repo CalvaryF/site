@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import Link from "next/link";
 import Image from "next/image";
+import Navitem from "./navitem";
+import { gsap } from "gsap";
+import { useEffect } from "react";
+import { useRef, useMemo } from "react";
 
 const HeaderMain = styled.div`
   position: fixed;
@@ -13,11 +17,10 @@ const HeaderMain = styled.div`
   font-size: 20px;
   z-index: 4;
   overflow: atuo;
-
   height: 65px;
   background-color: rgba(20, 20, 20);
-  // backdrop-filter: blur(1rem);
-  //box-shadow: 0 2px 80px #52b1ff50, 0 2px 50px #b885f919;
+  //backdrop-filter: blur(1rem);
+  box-shadow: 0 2px 80px #52b1ff50, 0 2px 50px #b885f919;
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
   -khtml-user-select: none; /* Konqueror HTML */
@@ -66,6 +69,21 @@ const Divider = styled.div`
   background-color: rgb(80, 80, 80);
 `;
 
+const Stem = styled.div`
+  width: 2px;
+  height: 20px;
+  max-height: 35px;
+  position: absolute;
+  background-color: #85d1ff;
+`;
+
+const LogoDiv = styled.div`
+  display: flex;
+  width: 30px;
+  justify-content: center;
+  position: relative;
+`;
+
 const HeaderMenu = styled.div`
   color: rgb(199, 199, 199);
   padding-top: 21px;
@@ -89,12 +107,37 @@ const MenuItem = styled.div`
 `;
 
 const Header = () => {
+  let fly = null;
+  let stem = null;
+  let name = null;
+
+  useEffect(() => {
+    console.log(fly);
+    gsap.set(fly, { scaleX: 1 });
+    gsap.set(stem, { autoAlpha: 0 });
+    const tl = new gsap.timeline();
+    tl.to(fly, { scaleX: 0, delay: 1.3, duration: 0.08 });
+    tl.to(stem, { autoAlpha: 1, duration: 0 }, "-=0.08");
+    tl.to(fly, { scaleX: 1, duration: 0.08 });
+    tl.to(stem, { autoAlpha: 0, duration: 0 }, "-=0.08");
+    tl.to(fly, { scaleX: 0, duration: 0.08 });
+    tl.to(stem, { autoAlpha: 1, duration: 0 }, "-=0.08");
+    tl.to(fly, { scaleX: 1, duration: 0.08 });
+    tl.to(stem, { autoAlpha: 0, duration: 0 }, "-=0.08");
+  }, []);
+
   return (
     <HeaderMain>
       <Link href="/">
         <LogoContainer>
           <div>
-            <Image width={30} height={30} src="/images/new_logo.svg" />
+            <LogoDiv>
+              <div ref={(el) => (fly = el)}>
+                {" "}
+                <Image width={30} height={30} src="/images/new_logo.svg" />
+              </div>
+              <Stem ref={(el) => (stem = el)}></Stem>
+            </LogoDiv>
             <span> CALVARY FISHER</span>
           </div>
         </LogoContainer>
@@ -102,13 +145,13 @@ const Header = () => {
       <Divider></Divider>
       <HeaderMenu>
         <Link href="/">
-          <MenuItem>WORK</MenuItem>
+          <Navitem Text="Work" Link="/"></Navitem>
         </Link>
         <Link href="/">
-          <MenuItem>FEED</MenuItem>
+          <Navitem Text="Feed" Link="/"></Navitem>
         </Link>
         <Link href="/">
-          <MenuItem>INFO</MenuItem>
+          <Navitem Text="Info" Link="/"></Navitem>
         </Link>
       </HeaderMenu>
     </HeaderMain>
