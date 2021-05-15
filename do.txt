@@ -1,6 +1,10 @@
-All Tasks
+Feature Tasks
 
 Navbar hilight current page
 Navbar linking
 Add placeholder pages
 Page intros
+appearance of footer items on scroll
+animate in card items
+
+Responsive Tasks

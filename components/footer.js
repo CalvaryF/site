@@ -2,11 +2,15 @@ import styled from "styled-components";
 import Link from "next/link";
 
 const FooterMain = styled.div`
+  border-top: 1px solid #eee;
   position: relative;
   margin-top: 100px;
   height: 270px;
   width: 100%;
+  background-color: rgb(80, 81, 85);
   background-color: rgba(20, 20, 20);
+  //filter: brightness(1.08);
+  // box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45), 0 20px 20px rgba(0, 0, 0, 0.82);
   backdrop-filter: blur(1rem);
   color: white;
 `;
@@ -40,7 +44,7 @@ const Copyright = styled.div`
   float: right;
   font-size: 15px;
   font-family: aktiv-grotesk-extended, serif;
-  color: rgb(128, 128, 128);
+  color: white;
 `;
 
 const LinkContainer = styled.div`
@@ -60,7 +64,7 @@ const FooterLink = styled.a`
 const ContactButton = styled.div`
   margin-left: 30px;
   line-height: 2;
-  background-color: rgb(20, 20, 20);
+  //background-color: rgb(20, 20, 20);
   margin-bottom: 0px;
   display: inline-block;
   padding-left: 12px;
@@ -72,7 +76,7 @@ const ContactButton = styled.div`
   transition: 0.2s ease;
 
   &:hover {
-    color: rgb(30, 30, 30);
+    color: rgb(80, 81, 85);
     background-color: white;
     border-width: 1px;
     border-style: solid;
@@ -87,8 +91,10 @@ const Footer = () => {
       <Links>
         <LinkContainer>
           <FooterLink href="/">Instagram </FooterLink>
+          <FooterLink href="/">Medium </FooterLink>
           <FooterLink href="/">Linkedin </FooterLink>
           <FooterLink href="/">Twitter </FooterLink>
+          <FooterLink href="/">Tik Tox </FooterLink>
           <Copyright> &copy; Calvary Fisher 2021 </Copyright>
         </LinkContainer>
       </Links>

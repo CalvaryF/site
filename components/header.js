@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Navitem from "./navitem";
 import { gsap } from "gsap";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRef, useMemo } from "react";
 
 const HeaderMain = styled.div`
@@ -18,9 +18,15 @@ const HeaderMain = styled.div`
   z-index: 4;
   overflow: atuo;
   height: 65px;
-  background-color: rgba(20, 20, 20);
-  //backdrop-filter: blur(1rem);
-  box-shadow: 0 2px 80px #52b1ff50, 0 2px 50px #b885f919;
+  //background-color: rgba(20, 20, 20);
+  background-color: ${(props) =>
+    !props.color ? " rgba(20, 20, 20)" : "rgb(80, 81, 85)"};
+  // background-color: rgb(80, 81, 85);
+  transition: 0.2s ease;
+  border-bottom: ${(props) =>
+    !props.color ? "1px solid #eee" : "1px solid #eeeeee00"};
+  box-shadow: ${(props) =>
+    !props.color ? "0 2px 80px #85b1ff90" : "0 2px 80px #00000020"};
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
   -khtml-user-select: none; /* Konqueror HTML */
@@ -50,6 +56,7 @@ const LogoContainer = styled.div`
       padding-left: 15px;
       transition: 0.2s;
       font-size: 20px;
+      opacity: 0;
     }
   }
 
@@ -62,15 +69,15 @@ const LogoContainer = styled.div`
 const Divider = styled.div`
   display: inline-block;
   vertical-align: middle;
-  margin-left: 35px;
+  margin-left: 30px;
   margin-top: 0px;
   height: 65px;
   width: 1px;
-  background-color: rgb(80, 80, 80);
+  //background-color: #eee;
 `;
 
 const Stem = styled.div`
-  width: 2px;
+  width: 1px;
   height: 20px;
   max-height: 35px;
   position: absolute;
@@ -93,43 +100,58 @@ const HeaderMenu = styled.div`
   margin-right: 15px;
 `;
 
-const MenuItem = styled.div`
-  margin-right: 15px;
-  -webkit-tap-highlight-color: transparent;
-  display: inline-block;
-  transition: 0.2s ease;
-  color: rgb(130, 130, 130);
-  &:hover {
-    color: #85d1ff;
-    transition: 0.2s ease;
-    cursor: pointer;
-  }
-`;
-
 const Header = () => {
   let fly = null;
   let stem = null;
   let name = null;
 
+  const [toggle, setToggle] = useState(false);
+  const [tl2] = useState(new gsap.timeline({ paused: true }));
+  const [color, setColor] = useState(false);
+
+  const toggleTimeline = () => {
+    setToggle(!toggle);
+    console.log("toggle");
+  };
   useEffect(() => {
-    console.log(fly);
-    gsap.set(fly, { scaleX: 1 });
-    gsap.set(stem, { autoAlpha: 0 });
     const tl = new gsap.timeline();
-    tl.to(fly, { scaleX: 0, delay: 1.3, duration: 0.08 });
-    tl.to(stem, { autoAlpha: 1, duration: 0 }, "-=0.08");
-    tl.to(fly, { scaleX: 1, duration: 0.08 });
-    tl.to(stem, { autoAlpha: 0, duration: 0 }, "-=0.08");
-    tl.to(fly, { scaleX: 0, duration: 0.08 });
-    tl.to(stem, { autoAlpha: 1, duration: 0 }, "-=0.08");
-    tl.to(fly, { scaleX: 1, duration: 0.08 });
-    tl.to(stem, { autoAlpha: 0, duration: 0 }, "-=0.08");
+    gsap.set(fly, { scaleX: 1, y: 0 });
+    gsap.set(stem, { autoAlpha: 0, y: 2 });
+    gsap.set(name, { autoAlpha: 0, y: 2 });
+    tl.to(fly, { scaleX: 0, y: -4, delay: 0.5, duration: 0.1 });
+    tl.to(fly, { duration: 0.1 }, "-=0.1");
+    tl.to(stem, { y: -4, duration: 0.1 }, "-=0.1");
+    tl.to(stem, { autoAlpha: 1, ease: "steps(1)", duration: 0.1 }, "-=0.1");
+    tl.to(fly, { scaleX: 1, duration: 0.1 });
+    tl.to(stem, { autoAlpha: 0, ease: "steps(1)", duration: 0 }, "-=0.1");
+    tl.to(name, { y: 0, duration: 0.1, autoAlpha: 1 }, "-=0.1");
+    tl.to(fly, { scaleX: 0, duration: 0.1 });
+    tl.to(stem, { autoAlpha: 1, ease: "steps(1)", duration: 0.1 }, "-=0.1");
+    tl.to(fly, { scaleX: 1, duration: 0.1 });
+    tl.to(stem, { autoAlpha: 0, ease: "steps(1)", duration: 0 }, "-=0.1");
+    tl.to(fly, { y: 0, delay: 0.2, duration: 0.2 });
+    tl.to(stem, { y: 0, delay: 0.1, duration: 0.2 }, "-=0.1");
   }, []);
 
+  useEffect(() => {
+    tl2.reversed(!toggle);
+  }, [toggle]);
+
+  const changeColor = () => {
+    if (window.scrollY >= 45) {
+      setColor(true);
+    } else {
+      setColor(false);
+    }
+  };
+  if (typeof window !== "undefined") {
+    window.addEventListener("scroll", changeColor);
+  }
+
   return (
-    <HeaderMain>
+    <HeaderMain color={color}>
       <Link href="/">
-        <LogoContainer>
+        <LogoContainer onMouseEnter={toggleTimeline}>
           <div>
             <LogoDiv>
               <div ref={(el) => (fly = el)}>
@@ -138,21 +160,15 @@ const Header = () => {
               </div>
               <Stem ref={(el) => (stem = el)}></Stem>
             </LogoDiv>
-            <span> CALVARY FISHER</span>
+            <span ref={(el) => (name = el)}> CALVARY FISHER</span>
           </div>
         </LogoContainer>
       </Link>
       <Divider></Divider>
       <HeaderMenu>
-        <Link href="/">
-          <Navitem Text="Work" Link="/"></Navitem>
-        </Link>
-        <Link href="/">
-          <Navitem Text="Feed" Link="/"></Navitem>
-        </Link>
-        <Link href="/">
-          <Navitem Text="Info" Link="/"></Navitem>
-        </Link>
+        <Navitem Text="Work" L="/" A={true}></Navitem>
+        <Navitem Text="Feed" L="/" A={false}></Navitem>
+        <Navitem Text="Info" L="/" A={false}></Navitem>
       </HeaderMenu>
     </HeaderMain>
   );
