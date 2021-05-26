@@ -38,6 +38,7 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://use.typekit.net/xiz3kas.css"
           ></link>
+          <script src="https://player.vimeo.com/api/player.js"></script>
         </Head>
         <body>
           <Main />

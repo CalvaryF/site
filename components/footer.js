@@ -4,14 +4,14 @@ import Link from "next/link";
 const FooterMain = styled.div`
   border-top: 1px solid #eee;
   position: relative;
-  margin-top: 100px;
   height: 270px;
   width: 100%;
-  background-color: rgb(80, 81, 85);
-  background-color: rgba(20, 20, 20);
+  background-color: rgb(120, 122, 125);
+  //backdrop-filter: blur(2rem);
+  //background-color: rgba(20, 20, 20);
   //filter: brightness(1.08);
-  // box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45), 0 20px 20px rgba(0, 0, 0, 0.82);
-  backdrop-filter: blur(1rem);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.45), 0 20px 20px rgba(0, 0, 0, 0.82);
+
   color: white;
 `;
 

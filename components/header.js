@@ -4,7 +4,7 @@ import Image from "next/image";
 import Navitem from "./navitem";
 import { gsap } from "gsap";
 import { useEffect, useState } from "react";
-import { useRef, useMemo } from "react";
+import React from "react";
 
 const HeaderMain = styled.div`
   position: fixed;
@@ -18,15 +18,13 @@ const HeaderMain = styled.div`
   z-index: 4;
   overflow: atuo;
   height: 65px;
-  //background-color: rgba(20, 20, 20);
   background-color: ${(props) =>
-    !props.color ? " rgba(20, 20, 20)" : "rgb(80, 81, 85)"};
-  // background-color: rgb(80, 81, 85);
+    !props.color ? "rgb(120, 122, 125)" : "rgba(20,20,20)"};
   transition: 0.2s ease;
   border-bottom: ${(props) =>
-    !props.color ? "1px solid #eee" : "1px solid #eeeeee00"};
+    props.color ? "1px solid #eee" : "1px solid #eeeeee00"};
   box-shadow: ${(props) =>
-    !props.color ? "0 2px 80px #85b1ff90" : "0 2px 80px #00000020"};
+    props.color ? "0 2px 80px #85b1ff" : "0 2px 80px #00000050"};
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
   -khtml-user-select: none; /* Konqueror HTML */
@@ -82,6 +80,7 @@ const Stem = styled.div`
   max-height: 35px;
   position: absolute;
   background-color: #85d1ff;
+  opacity: 0;
 `;
 
 const LogoDiv = styled.div`
@@ -100,14 +99,14 @@ const HeaderMenu = styled.div`
   margin-right: 15px;
 `;
 
-const Header = () => {
+const Header = ({ pathname }) => {
   let fly = null;
   let stem = null;
   let name = null;
 
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(!false);
   const [tl2] = useState(new gsap.timeline({ paused: true }));
-  const [color, setColor] = useState(false);
+  const [color, setColor] = useState(!false);
 
   const toggleTimeline = () => {
     setToggle(!toggle);
@@ -131,17 +130,17 @@ const Header = () => {
     tl.to(stem, { autoAlpha: 0, ease: "steps(1)", duration: 0 }, "-=0.1");
     tl.to(fly, { y: 0, delay: 0.2, duration: 0.2 });
     tl.to(stem, { y: 0, delay: 0.1, duration: 0.2 }, "-=0.1");
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     tl2.reversed(!toggle);
   }, [toggle]);
 
   const changeColor = () => {
-    if (window.scrollY >= 45) {
+    if (window.scrollY >= 60) {
       setColor(true);
     } else {
-      setColor(false);
+      setColor(!false);
     }
   };
   if (typeof window !== "undefined") {
@@ -166,12 +165,11 @@ const Header = () => {
       </Link>
       <Divider></Divider>
       <HeaderMenu>
-        <Navitem Text="Work" L="/" A={true}></Navitem>
-        <Navitem Text="Feed" L="/" A={false}></Navitem>
-        <Navitem Text="Info" L="/" A={false}></Navitem>
+        <Navitem Text="Work" L="/" A={pathname == "/work"}></Navitem>
+        <Navitem Text="Info" L="/info" A={pathname == "/info"}></Navitem>
       </HeaderMenu>
     </HeaderMain>
   );
 };
-
-export default Header;
+const MemoizedHeader = React.memo(Header);
+export default MemoizedHeader;

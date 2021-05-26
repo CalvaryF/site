@@ -36,7 +36,7 @@ const Underline = styled.div`
   background-color: ${(props) => (props.active ? "#85d1ff" : "#aaa")};
   position: absolute;
   bottom: 0;
-  //opacity:0;
+  opacity: 0;
 `;
 
 const NavItem = ({ Text, L, A }) => {

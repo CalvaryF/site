@@ -23,12 +23,11 @@ const CardDiv = styled.div`
   place-self: center;
   //border: 1px solid #555;
   border-radius: 5px;
-  margin-bottom: 100px;
 
   &:hover {
     margin-top: -15px;
     margin-bottom: 15px;
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35), 0 20px 40px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.15), 0 20px 20px rgba(0, 0, 0, 0.22);
     cursor: pointer;
     //border: 1px solid #ccc;
 
@@ -41,7 +40,7 @@ const CardDiv = styled.div`
       }
 
       &.cardInfo {
-        opacity: 1;
+        opacity: 0.9;
         transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
       }
     }
@@ -51,7 +50,7 @@ const CardDiv = styled.div`
 const CardTitle = styled.span`
   color: white;
   display: inline-block;
-  font-family: aktiv-grotesk-extended, sans-serif;
+  font-family: aktiv-grotesk-extended, serif;
   font-weight: 500;
   font-style: normal;
   font-size: 20px;
@@ -60,7 +59,7 @@ const CardTitle = styled.span`
 `;
 
 const Dot = styled.div`
-  background-color: #444;
+  background-color: #888;
   height: 20px;
   width: 20px;
   border-radius: 10px;
@@ -82,9 +81,8 @@ const CardInfo = styled.div`
   height: 100%;
   position: relative;
   border-radius: 0 0 5px 5px;
-  background-color: rgb(20, 20, 20, 0.9);
+  background-color: rgb(30, 30, 30);
   opacity: 0;
-  backdrop-filter: blur(1rem);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -112,7 +110,7 @@ const Subhead = styled.div`
   border-bottom: 1px solid #fff;
   padding: 20px;
   span {
-    font-family: aktiv-grotesk-extended, sans-serif;
+    font-family: aktiv-grotesk-extended, serif;
     color: white;
     font-weight: 500;
     font-style: normal;
@@ -132,7 +130,7 @@ const Description = styled.div`
   //background-color: orangered;
   border-bottom: 1px solid #fff;
   padding: 20px;
-  font-family: aktiv-grotesk-extended, sans-serif;
+  font-family: aktiv-grotesk-extended, serif;
   color: white;
   font-weight: 500;
   font-style: normal;
@@ -161,7 +159,7 @@ const CardBody = styled.div`
   border-radius: 0 0 5px 5px;
 `;
 
-const Card = ({ path, title, thumbnail, type, logo, subhead, description }) => {
+const Card = ({ path, title, thumbnail, type }) => {
   return (
     <Link href={path}>
       <div className="card">
@@ -172,18 +170,6 @@ const Card = ({ path, title, thumbnail, type, logo, subhead, description }) => {
           </CardHead>
           <CardBody>
             <CardImage src={thumbnail}></CardImage>
-            <CardInfo className="cardInfo">
-              <Logo>
-                <img src={logo} />
-              </Logo>
-              <Subhead>
-                <span>{subhead}</span>
-              </Subhead>
-              <Description>{description}</Description>
-              <Click>
-                <div></div>
-              </Click>
-            </CardInfo>
           </CardBody>
         </CardDiv>
       </div>
