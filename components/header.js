@@ -165,7 +165,11 @@ const Header = ({ pathname }) => {
       </Link>
       <Divider></Divider>
       <HeaderMenu>
-        <Navitem Text="Work" L="/" A={pathname == "/work"}></Navitem>
+        <Navitem
+          Text="Work"
+          L="/"
+          A={pathname.includes("/work") || pathname == "/"}
+        ></Navitem>
         <Navitem Text="Info" L="/info" A={pathname == "/info"}></Navitem>
       </HeaderMenu>
     </HeaderMain>

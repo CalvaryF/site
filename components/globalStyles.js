@@ -18,4 +18,10 @@ const Project = styled.div`
   // margin-top: 200px;
 `;
 
-export { Main, Project };
+const Video = styled.div`
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+`;
+
+export { Main, Project, Video };

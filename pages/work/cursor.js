@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useEffect } from "react";
 import gsap from "gsap";
 import ProjectHead from "../../components/projectHead";
-import { Main, Project } from "../../components/globalStyles";
+import { Main, Video } from "../../components/globalStyles";
 
 export default function Cursor() {
   useEffect(() => {
@@ -17,21 +17,30 @@ export default function Cursor() {
   }, []);
   return (
     <Main>
-      <iframe
-        className="intro"
-        src="https://player.vimeo.com/video/161557887"
-        style={{
-          position: "absolute",
-          top: "0",
-          left: "0",
-          width: "90%",
-          height: "90%",
-          left: "5%",
-        }}
-        frameborder="0"
-        allow="autoplay; fullscreen"
-        allowfullscreen
-      ></iframe>
+      <ProjectHead
+        title="Cursor"
+        logo="/images/logos/cursor.png"
+        date="2018"
+        category="Experimental Animation"
+        copy="lorem ipsum etc this is a test of the copy, going to put something cool in here maybe we'll have to see, we surely will, theres almost nothing more blah blah blah click below to view"
+      ></ProjectHead>
+      <Video>
+        <iframe
+          className="intro"
+          src="https://player.vimeo.com/video/161557887"
+          style={{
+            position: "relative",
+            top: "0",
+            left: "0",
+            width: "90%",
+            height: "90%",
+            left: "5%",
+          }}
+          frameborder="0"
+          allow="autoplay; fullscreen"
+          allowfullscreen
+        ></iframe>
+      </Video>
     </Main>
   );
 }

@@ -74,7 +74,7 @@ const Home = () => {
             subhead={
               <>
                 <p>art practice:</p>
-                2021 -
+                Systems Design
               </>
             }
             description="Material futures speculation using systems thinking, simulation, philosophy, and design."

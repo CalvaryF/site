@@ -186,7 +186,9 @@ export default function ProjectHead({
           {demo ? (
             <Demo>
               <button>
-                <Link href={demo}>View Demo &#8594;</Link>
+                <Link href={demo}>
+                  <a target="_blank">View Demo &#8594;</a>
+                </Link>
               </button>
             </Demo>
           ) : (
